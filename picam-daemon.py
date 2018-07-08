@@ -24,11 +24,11 @@ def handle(clientsocket):
 			start = time.time()
 			camera.capture('/home/pi/ir/picam-latest-snap.jpg')
 			finish = start - time.time()
-			print finish
-			print 'Picture Taken!'
+			print(finish)
+			print('Picture Taken!')
 			
 		if buf == 'ack':
-			print 'Ping: Hello!'
+			print('Ping: Hello!')
 		
 		if len(buf) == 0: break
 
@@ -47,10 +47,10 @@ while 1:
 	ct = threading.Thread(target=handle, args=(clientsocket,))
 	ct.run() # this can be run(), because it can be scaled.
 	
-	print 'Camera thread starting.'
+	print('Camera thread starting.')
 	camThread = threading.Thread()
 	while camThread.is_alive():
 		camThread.join(1)
 	camThread.run() # this must be start(), otherwise PiCam will crash. This is because PiCam cannot receive more than 1 connection.
-	print 'Camera thread ended'
+	print('Camera thread ended')
 	camera.close() # Gracefully close PiCam if client disconnects
