@@ -7,10 +7,10 @@ PORT = 10000
 s = socket.socket()
 s.connect((HOST, PORT))
 
-print s
+print(s)
 
 while 1:
-    msg = raw_input("Command To Send: ")
+    msg = input("Command To Send: ")
     if msg == "close":
        s.close()
        sys.exit(0)
