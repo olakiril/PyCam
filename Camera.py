@@ -12,8 +12,8 @@ class Capture:
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
-        GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=2000)
+        GPIO.setup(20, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=500)
 
         # setup camera
         self.camera_init()
@@ -29,19 +29,16 @@ class Capture:
         print('Camera server running')
 
     def shutter(self, foo):
-        if GPIO.input(26):
-            self.turn_off(20)
-            self.turn_on(21)
-            start = time.time()
-            print('Taking picture')
-            self.camera.capture('picam-latest-snap.jpg')
-            finish = time.time() - start
-            print(finish)
-            print('Picture Taken!')
-            self.turn_off(21)
-            self.camera_cleanup()
-            self.camera_init()
-            self.turn_on(20)
+        self.turn_off(20)
+        start = time.time()
+        print('Taking picture')
+        self.camera.capture('picam-latest-snap.jpg')
+        finish = time.time() - start
+        print(finish)
+        print('Picture Taken!')
+        self.camera_cleanup()
+        self.camera_init()
+        self.turn_on(20)
 
     def turn_on(self, channel):
         GPIO.output(channel, GPIO.HIGH)
