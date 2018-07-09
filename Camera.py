@@ -27,7 +27,7 @@ class Capture:
         self.camera.exposure_mode = 'sports'
         print('Camera server running')
 
-    def shutter(self):
+    def shutter(self, foo):
         self.turn_off(20)
         self.turn_on(21)
         start = time.time()
