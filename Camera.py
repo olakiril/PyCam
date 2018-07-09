@@ -28,18 +28,19 @@ class Capture:
         print('Camera server running')
 
     def shutter(self, foo):
-        self.turn_off(20)
-        self.turn_on(21)
-        start = time.time()
-        print('Taking picture')
-        self.camera.capture('picam-latest-snap.jpg')
-        finish = start - time.time()
-        print(finish)
-        print('Picture Taken!')
-        self.turn_off(21)
-        self.camera_cleanup()
-        self.camera_init()
-        self.turn_on(20)
+        if GPIO.input(12):
+            self.turn_off(20)
+            self.turn_on(21)
+            start = time.time()
+            print('Taking picture')
+            self.camera.capture('picam-latest-snap.jpg')
+            finish = start - time.time()
+            print(finish)
+            print('Picture Taken!')
+            self.turn_off(21)
+            self.camera_cleanup()
+            self.camera_init()
+            self.turn_on(20)
 
     def turn_on(self, channel):
         GPIO.output(channel, GPIO.HIGH)
