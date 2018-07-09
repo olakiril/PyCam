@@ -10,9 +10,9 @@ class Capture:
         self.path = '~'
         # setup GPIO
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(12, GPIO.IN)
+        GPIO.setup(26, GPIO.IN)
         GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
-        GPIO.add_event_detect(12, GPIO.RISING, callback=self.shutter, bouncetime=200)
+        GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=200)
 
         # setup camera
         self.camera_init()
@@ -28,13 +28,13 @@ class Capture:
         print('Camera server running')
 
     def shutter(self, foo):
-        if GPIO.input(12):
+        if GPIO.input(26):
             self.turn_off(20)
             self.turn_on(21)
             start = time.time()
             print('Taking picture')
             self.camera.capture('picam-latest-snap.jpg')
-            finish = start - time.time()
+            finish = time.time() - start
             print(finish)
             print('Picture Taken!')
             self.turn_off(21)
