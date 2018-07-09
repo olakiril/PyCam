@@ -6,7 +6,7 @@ import daemon.runner
 class Capture:
     """ this class handles the licks
     """
-    def __init__(self, logger):
+    def __init__(self):
         self.path = '~'
         # setup GPIO
         GPIO.setmode(GPIO.BCM)
