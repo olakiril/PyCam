@@ -31,6 +31,7 @@ class Capture:
         self.turn_off(20)
         self.turn_on(21)
         start = time.time()
+        print('Taking picture')
         self.camera.capture('picam-latest-snap.jpg')
         finish = start - time.time()
         print(finish)
