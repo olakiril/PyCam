@@ -22,17 +22,17 @@ class Capture:
         self.turn_on(20)
 
     def camera_init(self):
-        self.camera = picamera.PiCamera()
-        self.camera.resolution = (640, 480)
+        self.camera = picamera.PiCamera(resolution=(640, 480), framerate=90)
+        #self.camera.resolution = (640, 480)
         # camera.zoom = (0.2, 0.2, 1.0, 1.0)
         self.camera.exposure_mode = 'sports'
         print('Camera server running')
 
     def shutter(self, foo):
         self.turn_off(20)
-        start = time.time()
         print('Taking picture')
-        self.camera.capture('picam-latest-snap.jpg')
+        start = time.time()
+        self.camera.capture('picam-latest-snap.jpg', 'jpeg', use_video_port=True)
         finish = time.time() - start
         print(finish)
         print('Picture Taken!')
