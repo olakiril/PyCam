@@ -10,9 +10,9 @@ class Capture:
         self.path = '~'
         # setup GPIO
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(26, GPIO.IN)
+        GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
-        GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=200)
+        GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=2000)
 
         # setup camera
         self.camera_init()
