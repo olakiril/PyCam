@@ -9,6 +9,7 @@ class Capture:
     def __init__(self):
         self.path = '~'
         # setup GPIO
+        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
@@ -58,4 +59,5 @@ class Capture:
         self.camera.close()  # Gracefully close PiCam if client disconnects
 
     def cleanup(self):
-        GPIO.remove_event_detect(12)
+        GPIO.remove_event_detect(26)
+        GPIO.cleanup()
