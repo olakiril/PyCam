@@ -12,7 +12,7 @@ class Capture:
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(20, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
         GPIO.add_event_detect(26, GPIO.RISING, callback=self.shutter, bouncetime=500)
 
         # setup camera
@@ -20,24 +20,29 @@ class Capture:
 
         # ready indicator
         self.turn_on(20)
+        self.turn_off(21)
 
     def camera_init(self):
-        self.camera = picamera.PiCamera(resolution=(640, 480), framerate=90)
+        self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
         #self.camera.resolution = (640, 480)
         # camera.zoom = (0.2, 0.2, 1.0, 1.0)
         self.camera.exposure_mode = 'sports'
         print('Camera server running')
 
     def shutter(self, foo):
-        self.turn_off(20)
-        print('Taking picture')
         start = time.time()
-        self.camera.capture('picam-latest-snap.jpg', 'jpeg', use_video_port=True)
-        finish = time.time() - start
+        self.turn_off(20)
+        self.turn_on(21)
+        print('Taking picture')
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        self.camera.capture(timestr + '.jpg', 'jpeg', use_video_port=True)
+
         print(finish)
         print('Picture Taken!')
+        finish = time.time() - start
         self.camera_cleanup()
         self.camera_init()
+        self.turn_off(21)
         self.turn_on(20)
 
     def turn_on(self, channel):
@@ -47,12 +52,12 @@ class Capture:
         GPIO.output(channel, GPIO.LOW)
 
     def camera_cleanup(self):
-        print('Camera thread starting.')
+        #print('Camera thread starting.')
         camThread = threading.Thread()
         while camThread.is_alive():
             camThread.join(1)
         camThread.run()
-        print('Camera thread ended')
+        #print('Camera thread ended')
         self.camera.close()  # Gracefully close PiCam if client disconnects
 
     def cleanup(self):
