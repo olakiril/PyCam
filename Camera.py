@@ -36,10 +36,10 @@ class Capture:
         print('Taking picture')
         timestr = time.strftime("%Y%m%d-%H%M%S")
         self.camera.capture(timestr + '.jpg', 'jpeg', use_video_port=True)
-
+        finish = time.time() - start
         print(finish)
         print('Picture Taken!')
-        finish = time.time() - start
+
         self.camera_cleanup()
         self.camera_init()
         self.turn_off(21)
