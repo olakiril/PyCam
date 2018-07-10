@@ -7,7 +7,7 @@ class Capture:
     """ this class handles the licks
     """
     def __init__(self):
-        self.path = '~/Pictures/'
+        self.path = '/home/pi/Pictures/'
         # setup GPIO
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
