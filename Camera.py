@@ -23,7 +23,8 @@ class Capture:
         self.turn_off(21)
 
     def camera_init(self):
-        self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
+        #self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
+        self.camera = picamera.PiCamera(resolution=(640, 480))
         #self.camera.resolution = (640, 480)
         # camera.zoom = (0.2, 0.2, 1.0, 1.0)
         self.camera.image_effect = 'gpen'
@@ -36,7 +37,7 @@ class Capture:
         self.turn_on(21)
         #print('Taking picture')
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        self.camera.capture(os.path.join(self.path, timestr + '.jpg'), 'jpeg', use_video_port=True)
+        self.camera.capture(os.path.join(self.path, timestr + '.jpg'), 'jpeg', use_video_port=False)
         #finish = time.time() - start
         #print(finish)
         #print('Picture Taken!')
