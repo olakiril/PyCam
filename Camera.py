@@ -36,7 +36,7 @@ class Capture:
         self.turn_on(21)
         #print('Taking picture')
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        self.camera.capture(self.path + timestr + '.jpg', 'jpeg', use_video_port=True)
+        self.camera.capture(os.path.join(self.path, timestr + '.jpg'), 'jpeg', use_video_port=True)
         #finish = time.time() - start
         #print(finish)
         #print('Picture Taken!')
