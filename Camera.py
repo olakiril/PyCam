@@ -9,7 +9,8 @@ class Capture:
     def __init__(self):
         self.path = '/home/pi/Pictures/'
         # setup GPIO
-        GPIO.cleanup()
+        #GPIO.cleanup()
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup([20, 21], GPIO.OUT, initial=GPIO.LOW)
@@ -27,9 +28,9 @@ class Capture:
         self.camera = picamera.PiCamera(resolution=(640, 480))
         #self.camera.resolution = (640, 480)
         # camera.zoom = (0.2, 0.2, 1.0, 1.0)
-        self.camera.image_effect = 'gpen'
+        self.camera.image_effect = 'sketch'
         self.camera.exposure_mode = 'sports'
-        print('Camera server running')
+        #print('Camera server running')
 
     def shutter(self, foo):
         #start = time.time()
