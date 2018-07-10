@@ -7,7 +7,7 @@ class Capture:
     """ this class handles the licks
     """
     def __init__(self):
-        self.path = '~'
+        self.path = '~/Pictures/'
         # setup GPIO
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
@@ -26,23 +26,23 @@ class Capture:
         self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
         #self.camera.resolution = (640, 480)
         # camera.zoom = (0.2, 0.2, 1.0, 1.0)
+        self.camera.image_effect = 'gpen'
         self.camera.exposure_mode = 'sports'
         print('Camera server running')
 
     def shutter(self, foo):
-        start = time.time()
+        #start = time.time()
         self.turn_off(20)
-        #self.turn_on(21)
+        self.turn_on(21)
         #print('Taking picture')
         timestr = time.strftime("%Y%m%d-%H%M%S")
-        self.camera.capture(timestr + '.jpg', 'jpeg', use_video_port=True)
-        finish = time.time() - start
-        print(finish)
-        print('Picture Taken!')
-
+        self.camera.capture(self.path + timestr + '.jpg', 'jpeg', use_video_port=True)
+        #finish = time.time() - start
+        #print(finish)
+        #print('Picture Taken!')
+        self.turn_off(21)
         self.camera_cleanup()
         self.camera_init()
-        #self.turn_off(21)
         self.turn_on(20)
 
     def turn_on(self, channel):
