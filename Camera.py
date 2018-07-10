@@ -32,8 +32,8 @@ class Capture:
     def shutter(self, foo):
         start = time.time()
         self.turn_off(20)
-        self.turn_on(21)
-        print('Taking picture')
+        #self.turn_on(21)
+        #print('Taking picture')
         timestr = time.strftime("%Y%m%d-%H%M%S")
         self.camera.capture(timestr + '.jpg', 'jpeg', use_video_port=True)
         finish = time.time() - start
@@ -42,7 +42,7 @@ class Capture:
 
         self.camera_cleanup()
         self.camera_init()
-        self.turn_off(21)
+        #self.turn_off(21)
         self.turn_on(20)
 
     def turn_on(self, channel):
