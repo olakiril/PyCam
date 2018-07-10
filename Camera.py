@@ -24,8 +24,8 @@ class Capture:
         self.turn_off(21)
 
     def camera_init(self):
-        #self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
-        self.camera = picamera.PiCamera(resolution=(640, 480))
+        self.camera = picamera.PiCamera(resolution=(640, 480), framerate=30)
+        #self.camera = picamera.PiCamera(resolution=(640, 480))
         self.camera.image_effect = 'none'
         self.camera.exposure_mode = 'sports'
 
@@ -34,7 +34,7 @@ class Capture:
         self.turn_off(20)
         timestr = time.strftime("%Y%m%d-%H%M%S")
         self.turn_on(21)
-        self.camera.capture(os.path.join(self.path, timestr + '.jpg'), 'jpeg', use_video_port=False)
+        self.camera.capture(os.path.join(self.path, timestr + '.jpg'), 'jpeg', use_video_port=True)
         #finish = time.time() - start
         #print(finish)
         self.turn_off(21)
